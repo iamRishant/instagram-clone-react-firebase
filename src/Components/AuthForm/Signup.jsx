@@ -18,9 +18,10 @@ const Signup = () => {
 
             <input onChange={(e)=>setInputs({...inputs,fullname:e.target.value})} value={inputs.fullname} className='bg-[#121212] py-1 outline-gray-900 rounded-md px-3' placeholder='Full Name' type="text" />
 
-            <div className='w-full '>
-                <input onChange={(e)=>setInputs({...inputs,password:e.target.value})} value={inputs.password} className='bg-[#121212] py-1 outline-gray-900 rounded-md px-3' placeholder='Password' type={show ? "text":"password"} />
-                {show ? <i class="ri-eye-fill"></i>:<i class="ri-eye-fill"></i>}
+            <div className='w-full relative'>
+                <input onChange={(e)=>setInputs({...inputs,password:e.target.value})} value={inputs.password} className='bg-[#121212] py-1 outline-gray-900 rounded-md px-3 w-full' placeholder='Password' type={show ? "text":"password"} />
+
+                {!show ? <i onClick={()=>setShow(!show)} class="ri-eye-fill absolute right-2 top-1"></i>:<i onClick={()=>setShow(!show)} class="ri-eye-off-fill absolute right-2 top-1"></i>}
             </div>
         </div>
         <button  className='mt-5 px-10 py-1 bg-[#0069AD] rounded-md w-[75%] mx-auto'>Sign up</button> 
