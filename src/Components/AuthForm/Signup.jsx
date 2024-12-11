@@ -1,0 +1,31 @@
+import React, { useState } from 'react'
+
+const Signup = () => {
+    const[inputs,setInputs]=useState({
+        email:'',
+        username:'',
+        fullname:'',
+        password:''
+    })
+
+    const[show,setShow]=useState(false)
+  return (
+    <>
+        <div className='flex flex-col gap-3 w-[75%] mx-auto'>
+            <input onChange={(e)=>setInputs({...inputs,email:e.target.value})} value={inputs.email} className='bg-[#121212] py-1 outline-gray-900 rounded-md px-3' placeholder='Email' type="text" />
+
+            <input onChange={(e)=>setInputs({...inputs,username:e.target.value})} value={inputs.username} className='bg-[#121212] py-1 outline-gray-900 rounded-md px-3' placeholder='Username' type="text" />
+
+            <input onChange={(e)=>setInputs({...inputs,fullname:e.target.value})} value={inputs.fullname} className='bg-[#121212] py-1 outline-gray-900 rounded-md px-3' placeholder='Full Name' type="text" />
+
+            <div className='w-full '>
+                <input onChange={(e)=>setInputs({...inputs,password:e.target.value})} value={inputs.password} className='bg-[#121212] py-1 outline-gray-900 rounded-md px-3' placeholder='Password' type={show ? "text":"password"} />
+                {show ? <i class="ri-eye-fill"></i>:<i class="ri-eye-fill"></i>}
+            </div>
+        </div>
+        <button  className='mt-5 px-10 py-1 bg-[#0069AD] rounded-md w-[75%] mx-auto'>Sign up</button> 
+    </>
+  )
+}
+
+export default Signup
