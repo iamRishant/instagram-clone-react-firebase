@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import useSignupWithEmailAndPassword from '../../hooks/useSignupWithEmailAndPassword';
 
 const Signup = () => {
     const[inputs,setInputs]=useState({
@@ -7,8 +8,10 @@ const Signup = () => {
         fullname:'',
         password:''
     })
+    const [isLoading,setIsloading]=useState(false)
+    const[show,setShow]=useState(false);
 
-    const[show,setShow]=useState(false)
+    const {loading,error,signup}=useSignupWithEmailAndPassword()
   return (
     <>
         <div className='flex flex-col gap-3 w-[75%] mx-auto'>
@@ -24,7 +27,9 @@ const Signup = () => {
                 {!show ? <i onClick={()=>setShow(!show)} class="ri-eye-fill absolute right-2 top-1"></i>:<i onClick={()=>setShow(!show)} class="ri-eye-off-fill absolute right-2 top-1"></i>}
             </div>
         </div>
-        <button  className='mt-5 px-10 py-1 bg-[#0069AD] rounded-md w-[75%] mx-auto'>Sign up</button> 
+            <button disabled={loading} className='mt-5 px-10 py-1 bg-[#0069AD] rounded-md w-[75%] mx-auto' onClick={()=>signup(inputs)}>{loading?"Loading":"Sign Up"}</button>
+        
+         
     </>
   )
 }
