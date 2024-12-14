@@ -3,6 +3,7 @@ import {auth, firestore} from '../Firebase/firebase'
 import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
 import { doc, setDoc } from 'firebase/firestore';
 import { toast } from 'react-toastify';
+import useAuthStore from '../store/authStore';
 
 const useSignupWithEmailAndPassword = () => {
 
@@ -12,6 +13,9 @@ const useSignupWithEmailAndPassword = () => {
         loading,
         error,
       ] = useCreateUserWithEmailAndPassword(auth);
+
+    //   lets update the store
+    const loginUser=useAuthStore(state=>state.login)// it will return the login fxn in store
 
       const signup=async(inputs)=>{
         // first lets check inputs
@@ -51,6 +55,7 @@ const useSignupWithEmailAndPassword = () => {
                 localStorage.setItem("user-info",JSON.stringify(userDoc));
                 // alert("Sign Up Successfull");
                 toast.success("Account Created Successfull");
+                loginUser(userDoc)//we are storing the same data which we are storing in the database
                 
             }
         } catch (error) {
