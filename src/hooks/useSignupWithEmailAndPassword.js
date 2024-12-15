@@ -1,7 +1,7 @@
 import React from 'react'
 import {auth, firestore} from '../Firebase/firebase'
 import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
-import { doc, setDoc } from 'firebase/firestore';
+import { collection, doc, getDocs, query, setDoc, where } from 'firebase/firestore';
 import { toast } from 'react-toastify';
 import useAuthStore from '../store/authStore';
 
@@ -17,13 +17,36 @@ const useSignupWithEmailAndPassword = () => {
     //   lets update the store
     const loginUser=useAuthStore(state=>state.login)// it will return the login fxn in store
 
-      const signup=async(inputs)=>{
+    
+    
+    
+    
+    
+    const signup=async(inputs)=>{
         // first lets check inputs
         if(!inputs.password || !inputs.fullname || !inputs.username || !inputs.email){
             console.log("Fill all the details");
             return;
             
         }
+        // ---------------------------------------------------------
+
+        // firebase is handling unique emails but i also want to handle unique username for that i need existing username which we need 
+        // to fetch from firestore to do so we will use query firestore
+
+        const userRef = collection(firestore, "users");//store name, collection name instead of doc we are using collection
+        const q= query(userRef, where("username", "==", inputs.username));
+
+            const querySnapshot = await getDocs(q);
+
+        if(!querySnapshot.empty){
+            toast.error("Username already exits try another username");
+            return;
+        }
+
+        // ---------------------------------------------------------------------
+
+        // now if everything is alright then we will create new user
 
         try {
             const newUser=await createUserWithEmailAndPassword(inputs.email,inputs.password);

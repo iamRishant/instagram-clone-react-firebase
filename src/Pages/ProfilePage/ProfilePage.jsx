@@ -10,7 +10,7 @@ const ProfilePage = () => {
   return (
     <div className='w-full flex flex-col items-center justify-center'>
 
-    <div className='w-[70%] border-2 mx-auto mt-10 p-5'>
+    <div className='w-[70%]  mx-auto mt-10 p-5'>
         <div className=''>
             <ProfileHeader username={username}/>
         </div>

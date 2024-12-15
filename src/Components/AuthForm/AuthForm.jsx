@@ -29,7 +29,7 @@ const AuthForm = () => {
             
         </div>
 
-        <GoogleAuth/>
+        <GoogleAuth prefix={isLogin ? "Login":"Sign Up"}/>
 
         <div className='w-[75%] border-[1px] border-gray-500 mx-auto mt-10 p-5 flex items-center justify-center'>
             

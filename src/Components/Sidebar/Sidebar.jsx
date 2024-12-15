@@ -35,7 +35,7 @@ const Sidebar = () => {
         },
     ]
 
-    const {handleLogout,loading,error}=useLogout();// custom hook created for logging out
+  const {handleLogout,loading,error}=useLogout();// custom hook created for logging out
   return (
     <div className='py-10 px-6 sticky top-0 left-0 h-[100vh] '>
       <div className='flex flex-col w-full'>

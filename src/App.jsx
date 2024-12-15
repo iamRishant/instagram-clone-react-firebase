@@ -6,13 +6,16 @@ import ProfilePage from "./Pages/ProfilePage/ProfilePage";
 import { ToastContainer } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 import useAuthStore from "./store/authStore";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth } from "./Firebase/firebase";
 
 function App() {
 
   //here we need user ka state ki koi user hai ya nhi agar user hai then usko homepage dikhao else navigate to authpage and agar
   // user nhi hai to usko homepage mat dikhao 
 
-  const authUser=useAuthStore((state)=>state.user);
+  // const authUser=useAuthStore((state)=>state.user);
+  const [authUser] =useAuthState(auth);//checking directly from firebase more safe
   return (
     <>
 
