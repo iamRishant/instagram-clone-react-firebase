@@ -1,4 +1,4 @@
-import { doc, setDoc } from 'firebase/firestore';
+import { doc, getDoc, setDoc } from 'firebase/firestore';
 import React from 'react'
 import { useSignInWithGoogle } from 'react-firebase-hooks/auth';
 import { toast } from 'react-toastify';
@@ -19,9 +19,21 @@ const GoogleAuth = ({prefix}) => {
         return;
       }
 
-      if(newUser){
-        // if the user is created then we need to create this user in the database also
-                console.log(newUser);
+      // so here if user is logging in it means we already have its data we just need to update but if user is signing up 
+      // then we need to create a fresh document
+
+      // first we need this user info if it exists or not already
+      const userRef=doc(firestore,"users",newUser.user.uid);
+      const userDocSnap=await getDoc(userRef);
+      if(userDocSnap.exists()){
+        // logging in
+        const userDoc=userDocSnap.data();
+        localStorage.setItem("user-info",userDoc);
+        loginUser(userDoc);// for firestore
+        
+      } else {
+        // else new user fresh data
+        
                 const userDoc={
                   uid:newUser.user.uid,
                   email:newUser.user.email,
@@ -38,10 +50,12 @@ const GoogleAuth = ({prefix}) => {
               await setDoc(doc(firestore, "users", newUser.user.uid), userDoc);// users is the collection name and then 2nd para is the unique id of the user then the data
               // after that we will store in local storage also
               localStorage.setItem("user-info",JSON.stringify(userDoc));
-              // alert("Sign Up Successfull");
-              // toast.success("Account Created Successfull");
+
+              toast.success("Account Created Successfull");
               loginUser(userDoc)//we are storing the same data which we are storing in the database
       }
+
+      
     } catch (error) {
       toast.error("Error "+error.message,error);
     }
