@@ -6,6 +6,7 @@ import EditProfileModal from '../Modal/EditProfileModal';
 import usePreviewImg from '../../hooks/usePreviewImg';
 import useEditProfile from '../../hooks/useEditProfile';
 import { toast } from 'react-toastify';
+import useFollowUser from '../../hooks/useFollowUser';
 
 const ProfileHeader = () => {
 
@@ -16,14 +17,16 @@ const ProfileHeader = () => {
   // now we will get data from the store 
   const {userProfile}=useUserProfileStore();
   const authUser=useAuthStore(state=>state.user);
+
+  // for follow and unfollow
+  const{loadingFollow,isFollowing,handleFollowUser}=useFollowUser(userProfile?.uid);
+
   
   const visitingOwnProfileAndAuth=authUser && authUser.username===userProfile.username;// checking first if the user is authenticated
   // and the checking if the profile visited by user is his or some one elese profle edit profile button self accoung par dikhega
   const visitingAnotherProfileAndAuth=authUser && authUser.username!==userProfile.username;
   
-  // if(!authUser) return null;
-  // if(!userProfile) return null;
-  console.log("wer are here2");
+  
 
   const [isOpen,setIsOpen]=useState(false);
 
@@ -60,7 +63,7 @@ const ProfileHeader = () => {
                 <div className='flex items-center gap-3 mt-3'>
                     <h1 className='font-semibold'>{userProfile?.username}</h1>
                     {visitingOwnProfileAndAuth && <button onClick={()=>setIsOpen(true)} className='text-black bg-white px-2 py-1 rounded-md font-semibold hover:scale-90 duration-100'>Edit Profile</button>}
-                    {visitingAnotherProfileAndAuth && <button className='text-white bg-blue-500 px-2 py-1 rounded-md font-semibold hover:scale-90 duration-100'>Follow</button>}
+                    {visitingAnotherProfileAndAuth && <button onClick={handleFollowUser} className='text-white bg-blue-500 px-2 py-1 rounded-md font-semibold hover:scale-90 duration-100'>{loadingFollow ?"Updating...":isFollowing ? "Unfollow":"Follow"}</button>}
                     
                 </div>
                 <div className='flex gap-2 mt-2'>
@@ -100,7 +103,7 @@ const ProfileHeader = () => {
                 onChange={(e)=>setInputs({...inputs,URL:e.target.value})}
                 value={inputs.URL || authUser?.profileURL}
                 type="text"
-                placeholder="Full Name"
+                placeholder="Please Provide a Profile URL"
                 className="w-full px-3 py-2 bg-gray-800 text-white rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
             </div>
