@@ -28,7 +28,7 @@ const GoogleAuth = ({prefix}) => {
       if(userDocSnap.exists()){
         // logging in
         const userDoc=userDocSnap.data();
-        localStorage.setItem("user-info",userDoc);
+        localStorage.setItem("user-info",JSON.stringify(userDoc));
         loginUser(userDoc);// for firestore
         
       } else {

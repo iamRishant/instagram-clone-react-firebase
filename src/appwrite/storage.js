@@ -1,4 +1,4 @@
-import { Client, Storage } from "appwrite";
+import { Client, ID, Storage } from "appwrite";
 
 const client = new Client()
     .setEndpoint('https://cloud.appwrite.io/v1')
@@ -7,7 +7,7 @@ const client = new Client()
 const storage = new Storage(client);
 
 const promise = storage.createFile(
-    '[BUCKET_ID]',
+    '6758a08500046624e47f',
     ID.unique(),
     document.getElementById('uploader').files[0]
 );

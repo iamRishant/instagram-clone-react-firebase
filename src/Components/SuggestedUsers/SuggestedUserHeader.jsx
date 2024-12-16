@@ -12,12 +12,14 @@ const SuggestedUserHeader = () => {
   const {handleLogout,loading} = useLogout();
 
   if(!authUser) return null;
+  console.log(authUser.profileURL);
+  
   
   return (
     <div className='w-full flex items-center justify-between mt-3'>
     <div className='flex gap-2  items-center'>
       <Link to={`${authUser?.username}`}>
-        <Avatar size='40' src={authUser.profileURL} round/>
+        <Avatar  size='40' src={authUser.profileURL} round/>
       </Link>
       <Link to={`${authUser.username}`}>
         <span className='text-semibold'>{authUser.username}</span>
