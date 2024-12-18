@@ -1,24 +1,25 @@
 import React, { useEffect, useState } from 'react'
 import ProfilePost from './ProfilePost'
 import Loading from '../../Components/Loading/Loading'
+import useGetUserPosts from '../../hooks/useGetUserPosts'
+import useUserProfileStore from '../../store/useProfileStore'
 const Profileposts = () => {
-  const [isLoading,setIsLoading]=useState(true);
+  const {loading,posts}=useGetUserPosts();
+  const userProfile=useUserProfileStore(state=>state.userProfile);
 
-  useEffect(()=>{
-    setTimeout(()=>{
-      setIsLoading(false)
-    },2000) // simulate loading delay of 1 second
-  },[])
+  const noPostsFound=!loading && posts.length===0;
+  if(noPostsFound) return "No posts found";
 
 
-  if(isLoading) return <Loading/>
+  if(loading) return <Loading/>
   
   return (
     <div className='w-full flex flex-wrap mt-5'>
-        <ProfilePost img={"/img1.png"}/>    
-        <ProfilePost img={"/img2.png"}/>    
-        <ProfilePost img={"/img3.png"}/>    
-        <ProfilePost img={"/img4.png"}/>    
+        {
+          posts && posts.map((post)=>(
+            <ProfilePost key={post.id} post={post} userProfile={userProfile}/>
+          ))
+        }   
     </div>
   )
 }

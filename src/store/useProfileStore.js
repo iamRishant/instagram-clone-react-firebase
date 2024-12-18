@@ -10,6 +10,12 @@ const useUserProfileStore = create((set) => ({
         posts: state.userProfile?.posts ? [post.id, ...state.userProfile.posts] : [post.id],
       },
     })),
+    deletePost:(postId)=>set((state)=>({
+      userProfile:{
+        ...state.userProfile,// keep all the things
+        posts:state.userProfile.posts.filter((id)=>id!==postId)// it will update the post array 
+      },
+    }))
 }));
 
 export default useUserProfileStore;

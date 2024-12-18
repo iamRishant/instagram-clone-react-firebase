@@ -34,10 +34,10 @@ const ProfileHeader = () => {
   const {editProfile,loading}=useEditProfile();
 
   const [inputs,setInputs]=useState({
-    fullname:'',
-    username:'',
-    bio:'',
-    URL:'',
+    fullname:authUser?.fullname,
+    username:authUser?.username,
+    bio:authUser?.bio,
+    URL:authUser?.profileURL,
 
   })
 
@@ -88,7 +88,7 @@ const ProfileHeader = () => {
 
 
           <div className="flex justify-center mb-4">
-            <Avatar size='100' round src={inputs.URL || authUser?.profileURL }/>
+            <Avatar size='100' round src={inputs.URL}/>
           </div>
           
           {/* <button className="w-full bg-gray-700 text-white py-2 mb-4 rounded hover:bg-gray-600">
@@ -101,7 +101,7 @@ const ProfileHeader = () => {
               <label className="block text-white mb-1">Profile URL</label>
               <input
                 onChange={(e)=>setInputs({...inputs,URL:e.target.value})}
-                value={inputs.URL || authUser?.profileURL}
+                value={inputs.URL}
                 type="text"
                 placeholder="Please Provide a Profile URL"
                 className="w-full px-3 py-2 bg-gray-800 text-white rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -111,7 +111,7 @@ const ProfileHeader = () => {
               <label className="block text-white mb-1">Full Name</label>
               <input
                 onChange={(e)=>setInputs({...inputs,fullname:e.target.value})}
-                value={inputs.fullname || authUser?.fullname}
+                value={inputs.fullname}
                 type="text"
                 placeholder="Full Name"
                 className="w-full px-3 py-2 bg-gray-800 text-white rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -123,7 +123,7 @@ const ProfileHeader = () => {
               <label className="block text-white mb-1">Username</label>
               <input
                 onChange={(e)=>setInputs({...inputs,username:e.target.value})}
-                value={inputs.username || authUser?.username}
+                value={inputs.username}
                 type="text"
                 placeholder="Username"
                 className="w-full px-3 py-2 bg-gray-800 text-white rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -135,7 +135,7 @@ const ProfileHeader = () => {
               <label className="block text-white mb-1">Bio</label>
               <textarea
                 onChange={(e)=>setInputs({...inputs,bio:e.target.value})}
-                value={inputs.bio || authUser?.bio}
+                value={inputs.bio}
                 placeholder="Write something about yourself..."
                 rows="3"
                 className="w-full px-3 py-2 bg-gray-800 text-white rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
