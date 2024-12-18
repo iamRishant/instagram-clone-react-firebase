@@ -30,8 +30,11 @@ const ProfilePost = ({ img }) => {
           </div>
         </div>
       </div>
+
       <img className="w-full h-full aspect-auto" src={img} alt="" />
       {/* {isModalOpen && ( */}
+
+      
         <Modal isOpen={isModalOpen} onClose={modalClose}>
          <div className='w-full  mt-5 flex'>
           {/* left */}

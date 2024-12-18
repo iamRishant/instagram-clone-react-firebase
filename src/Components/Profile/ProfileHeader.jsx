@@ -10,7 +10,7 @@ import useFollowUser from '../../hooks/useFollowUser';
 
 const ProfileHeader = () => {
 
-  console.log("wer are here1");
+  
   
   
   
