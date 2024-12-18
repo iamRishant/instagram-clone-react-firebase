@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import Avatar from 'react-avatar'
 import useFollowUser from '../../hooks/useFollowUser'
 import useAuthStore from '../../store/authStore';
+import { Link } from 'react-router-dom';
 const SuggestedUser = ({user,setUser}) => {
     const {loadingFollow,isFollowing,handleFollowUser} =useFollowUser(user?.uid);
     const authUser=useAuthStore(state=>state.user);
@@ -15,6 +16,8 @@ const SuggestedUser = ({user,setUser}) => {
 
     
   return (
+    <Link to={`/${user?.username}`}>
+
     <div className='flex items-center justify-between my-3'>
     <div className='flex gap-2 items-center'>
         <Avatar size='45' src={user?.profileURL} round/>
@@ -28,6 +31,7 @@ const SuggestedUser = ({user,setUser}) => {
     }
     
     </div>
+    </Link>
   )
 }
 

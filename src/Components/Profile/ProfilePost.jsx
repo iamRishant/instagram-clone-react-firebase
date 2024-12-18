@@ -14,10 +14,11 @@ const ProfilePost = ({ img }) => {
   };
 
   return (
-    <div className="w-[30%] h-[40vh] mr-5 mb-4 relative cursor-pointer">
+    <>
+
+    <div className="w-[30%] h-[40vh] mr-5 mb-4 relative  cursor-pointer" onClick={() => setModalOpen(true)} >
       <div
-        onClick={() => setModalOpen(true)} 
-        className="flex items-center justify-center absolute top-0 left-0 w-full bg-black z-10 h-full hover:opacity-55 opacity-0 duration-150"
+        className="flex items-center justify-center absolute top-0 left-0 w-full bg-black h-full hover:opacity-55 opacity-0 duration-150"
       >
         <div className="flex gap-5">
           <div className="flex gap-1">
@@ -32,6 +33,8 @@ const ProfilePost = ({ img }) => {
       </div>
 
       <img className="w-full h-full aspect-auto" src={img} alt="" />
+      </div>
+
       {/* {isModalOpen && ( */}
 
       
@@ -62,7 +65,8 @@ const ProfilePost = ({ img }) => {
          </div>
         </Modal>
       {/* )} */}
-    </div>
+    
+    </>
   );
 };
 

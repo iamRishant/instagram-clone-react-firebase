@@ -16,7 +16,7 @@ const Search = () => {
     
     // setInputValue('');
     
-    console.log(user);
+    // console.log(user);
     if(!loading && user){
       setIsOpen(false);
       toast.success("User found");
@@ -56,11 +56,11 @@ const Search = () => {
                   {loading ? "Searching..." : "Search"}
                 </button>
               </div>
-               <Link className='hover:bg-slate-900 p-2 mt-2 rounded-md shadow-lg' to={`/${user?.username}`} onClick={handleSearch}>
+               <div  onClick={handleSearch} className='w-full hover:bg-slate-900 p-2 rounded-md shadow-lg '>
               {
                 user && <SuggestedUser user={user} setUser={setUser}/>
               }
-              </Link>
+              </div>
               
            
           </div>

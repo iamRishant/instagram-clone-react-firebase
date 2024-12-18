@@ -12,11 +12,11 @@ const SuggestedUserHeader = () => {
   const {handleLogout,loading} = useLogout();
 
   if(!authUser) return null;
-  console.log(authUser.profileURL);
+  // console.log(authUser.profileURL);
   
   
   return (
-    <div className='w-full flex items-center justify-between mt-3'>
+    <div className='w-full flex items-center justify-between mt-3 border-b-[2px] border-b-gray-600 pb-4'>
     <div className='flex gap-2  items-center'>
       <Link to={`${authUser?.username}`}>
         <Avatar  size='40' src={authUser.profileURL} round/>

@@ -12,6 +12,7 @@ const Profileposts = () => {
 
 
   if(isLoading) return <Loading/>
+  
   return (
     <div className='w-full flex flex-wrap mt-5'>
         <ProfilePost img={"/img1.png"}/>    
