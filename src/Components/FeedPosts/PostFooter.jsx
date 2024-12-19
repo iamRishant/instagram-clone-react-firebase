@@ -2,32 +2,30 @@ import React, { useRef, useState } from 'react'
 import { CommentLogo, NotificationsLogo, UnlikeLogo } from '../../assets/Constants';
 import usePostComment from '../../hooks/usePostComment';
 import useAuthStore from '../../store/authStore';
+import useLikePost from '../../hooks/useLikePost';
 
 const PostFooter = ({post,username,isProfile=false}) => {
   
-  const [liked,setLiked]=useState(false);
-  const [likeCount,setLikeCount]=useState(1000);
   const {loading,handlePostComment}=usePostComment();
   const [comment,setComment]=useState('');
   const authUser=useAuthStore(state=>state.user);
   const commentRef=useRef(null);
 
-  const handleLike=()=>{
-    setLiked(!liked);
-    liked ? setLikeCount(likeCount-1) : setLikeCount(likeCount+1);
-    
-  }
 
   const handleSubmitComment = async()=>{
     await handlePostComment(post.id,comment);
     setComment('')
   }
+
+
+  const { isLiked, likes, handleLikePost, loadingLike}=useLikePost(post);
+
   return (
     <div className='mt-5 mb-10 gap-2 flex flex-col '>
 
     <div className='flex gap-2'>
-      <div onClick={handleLike} className='cursor-pointer'>
-        {liked ?<UnlikeLogo/>:<NotificationsLogo/>}
+      <div onClick={handleLikePost}  className='cursor-pointer'>
+        {isLiked ?<UnlikeLogo/>:<NotificationsLogo/>}
       </div>
       <div className='cursor-pointer' onClick={()=>commentRef.current.focus()}>
         <CommentLogo/>
@@ -35,7 +33,7 @@ const PostFooter = ({post,username,isProfile=false}) => {
     </div>
 
     <div className='text-sm'>
-      <h1>{likeCount} likes</h1>
+      <h1>{likes} likes</h1>
     </div>
     {
       !isProfile && <div>
