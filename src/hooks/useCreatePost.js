@@ -4,7 +4,7 @@ import usePostStore from '../store/postStore';
 import useUserProfileStore from '../store/useProfileStore';
 import { useLocation } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { firestore } from '../Firebase/firebase';
+import { auth, firestore } from '../Firebase/firebase';
 import { addDoc, arrayUnion, collection, doc, setDoc, updateDoc } from 'firebase/firestore';
 
 const useCreatePost = () => {
@@ -12,6 +12,7 @@ const useCreatePost = () => {
   const authUser=useAuthStore(state=>state.user);
   const createPost=usePostStore(state=>state.createPost)
   const addPost=useUserProfileStore(state=>state.addPost)
+  const userProfile=useUserProfileStore(state=>state.userProfile)
   const {pathname}=useLocation();
 
   const handleCreatePost=async(URL,caption)=>{
@@ -43,8 +44,8 @@ const useCreatePost = () => {
         await updateDoc(userDocRef,{posts:arrayUnion(postDocRef.id)});// updating posts of user
         
 
-        createPost({...newPost,id:postDocRef.id})//adding id to avoid any react error
-        addPost({...newPost,id:postDocRef.id})
+        if(authUser.uid===userProfile.uid) createPost({...newPost,id:postDocRef.id})//adding id to avoid any react error and only add when its your profile
+        if(authUser.uid===userProfile.uid) addPost({...newPost,id:postDocRef.id})// sirf khud ke profile me pic add kr skte hai
         toast.success("Post created Succesfully")
         
     } catch (error) {

@@ -40,6 +40,9 @@ const useEditProfile = () => {
         toast.error(`Error Occured ${error.message}`);
         
     }
+    finally{
+      setLoading(false)
+    }
   }
 
   return {editProfile,loading};
