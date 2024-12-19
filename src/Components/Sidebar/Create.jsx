@@ -11,7 +11,7 @@ const Create = () => {
   const [URL, setURL] = useState('');
   const [caption,setCaption]=useState('');
   const{loading,handleCreatePost}=useCreatePost();
-  const userPost=usePostStore(state=>state.posts);
+  // const userPost=usePostStore(state=>state.posts);
   // console.log(userPost);
   
 

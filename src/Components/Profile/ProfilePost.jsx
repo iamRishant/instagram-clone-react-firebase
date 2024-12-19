@@ -102,10 +102,10 @@ const ProfilePost = ({ post,userProfile }) => {
               </div>
               <div className='border-b-2 border-gray-500 overflow-y-scroll max-h-[40vh] py-5'>
 
-              <Comments/>
+                <Comments post={post}/>
               </div>
 
-              <PostFooter isProfile={true}/>
+              <PostFooter post={post} isProfile={true}/>
           </div>
          </div>
         </Modal>
