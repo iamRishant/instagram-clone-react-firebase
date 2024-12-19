@@ -14,6 +14,7 @@ const useFollowUser = (userId) => {
 
   const handleFollowUser=async()=>{
     setLoading(true);
+    // if(!userProfile) return;
     try {
         const currentUserRef=doc(firestore,"users",authUser.uid);
         const userToFollowOrUnfollowRef=doc(firestore,"users",userId);

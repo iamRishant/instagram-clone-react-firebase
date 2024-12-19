@@ -2,14 +2,16 @@ import React from 'react'
 import PostHeader from './PostHeader'
 import PostFooter from './PostFooter'
 
-const Feedpost = ({img,username,avatar}) => {
+const Feedpost = ({post}) => {
+  // console.log(post);
+  
   return (
     <div className='w-full'>
-      <PostHeader username={username} avatar={avatar}/>
+      <PostHeader post={post}/>
       <div className='w-full'>
-        <img src={img}/>
+        <img className='w-full' src={post.imageUrl}/>
       </div>
-      <PostFooter username={username}/>
+      <PostFooter post={post}/>
     </div>
   )
 }

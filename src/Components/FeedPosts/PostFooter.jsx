@@ -3,13 +3,16 @@ import { CommentLogo, NotificationsLogo, UnlikeLogo } from '../../assets/Constan
 import usePostComment from '../../hooks/usePostComment';
 import useAuthStore from '../../store/authStore';
 import useLikePost from '../../hooks/useLikePost';
+import useGetUserProfileById from '../../hooks/useGetUserProfileById';
 
-const PostFooter = ({post,username,isProfile=false}) => {
+const PostFooter = ({post,isProfile=false}) => {
   
   const {loading,handlePostComment}=usePostComment();
   const [comment,setComment]=useState('');
   const authUser=useAuthStore(state=>state.user);
   const commentRef=useRef(null);
+
+  const userProfile=useGetUserProfileById(post.id);
 
 
   const handleSubmitComment = async()=>{
@@ -37,8 +40,11 @@ const PostFooter = ({post,username,isProfile=false}) => {
     </div>
     {
       !isProfile && <div>
-      <span className='text-md font-bold'>{username}</span><span className='text-sm'> Looking good</span>
-      <p className='text-sm text-gray-400'>View all 1,000 comments</p>
+      <span className='text-md font-bold'>{userProfile.username}</span><span className='text-sm'>{post.caption}</span>
+      {
+        post.comments.length>0 && <p className='text-sm text-gray-400 cursor-pointer'>View all {post.comments.length} comments</p>
+      }
+      
     </div>
     }
 

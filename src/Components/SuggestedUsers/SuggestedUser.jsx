@@ -16,9 +16,9 @@ const SuggestedUser = ({user,setUser}) => {
 
     
   return (
-    <Link to={`/${user?.username}`}>
-
+    
     <div className='flex items-center justify-between my-3'>
+    <Link to={`/${user?.username}`}>
     <div className='flex gap-2 items-center'>
         <Avatar size='45' src={user?.profileURL} round/>
         <div className='flex flex-col'>
@@ -26,12 +26,12 @@ const SuggestedUser = ({user,setUser}) => {
             <span className='text-sm text-gray-500'>{user?.followers.length} Followers</span>
         </div>
     </div>
+    </Link>
     {
-      authUser?.uid!==user?.uid && <button className='text-blue-500 hover:text-white' onClick={handleFollow} >{isFollowing ?"Unfollow":"Follow"}</button>
+      authUser?.uid!==user?.uid && loadingFollow?"Loading": <button className='text-blue-500 hover:text-white' onClick={handleFollowUser} >{isFollowing ?"Unfollow":"Follow"}</button>
     }
     
     </div>
-    </Link>
   )
 }
 
