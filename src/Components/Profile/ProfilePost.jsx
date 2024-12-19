@@ -77,7 +77,7 @@ const ProfilePost = ({ post,userProfile }) => {
 
       
         <Modal isOpen={isModalOpen} onClose={modalClose}>
-         <div className='w-full  mt-5 flex'>
+         <div className='w-full   mt-5 flex'>
           {/* left */}
           <div className='w-[50%]'>
             <img className='w-[100%] aspect-auto max-h-[80vh]' src={post?.imageUrl} alt="" />
@@ -89,7 +89,10 @@ const ProfilePost = ({ post,userProfile }) => {
               <div className='flex items-center justify-between py-2 border-b-2 border-gray-500'>
                 <div className='flex items-center gap-2'>
                   <Avatar src={userProfile?.profileURL} size='55' round/>
-                  <span>{post?.caption}</span>
+                  <div className='flex flex-col gap-1'>
+                  <p>{userProfile?.fullname}</p>
+                  <span>{post?.caption || "No Caption "}</span>
+                  </div>
                 </div>
                   {/* only owner of the post should be able to delete the post */}
                 {

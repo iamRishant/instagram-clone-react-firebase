@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import { CommentLogo, NotificationsLogo, UnlikeLogo } from '../../assets/Constants';
 import usePostComment from '../../hooks/usePostComment';
 import useAuthStore from '../../store/authStore';
@@ -10,6 +10,7 @@ const PostFooter = ({post,username,isProfile=false}) => {
   const {loading,handlePostComment}=usePostComment();
   const [comment,setComment]=useState('');
   const authUser=useAuthStore(state=>state.user);
+  const commentRef=useRef(null);
 
   const handleLike=()=>{
     setLiked(!liked);
@@ -28,7 +29,7 @@ const PostFooter = ({post,username,isProfile=false}) => {
       <div onClick={handleLike} className='cursor-pointer'>
         {liked ?<UnlikeLogo/>:<NotificationsLogo/>}
       </div>
-      <div className='cursor-pointer'>
+      <div className='cursor-pointer' onClick={()=>commentRef.current.focus()}>
         <CommentLogo/>
       </div>
     </div>
@@ -46,8 +47,8 @@ const PostFooter = ({post,username,isProfile=false}) => {
 
 {/* only authenticated user can post */}
     {
-      authUser ?<div className='border-b-gray-400 hover:border-b-blue-400 border-b-2 w-full text-white flex justify-between items-center w-full'>
-      <input value={comment} onChange={(e)=>setComment(e.target.value)} className='outline-none bg-transparent p-2 w-[90%]' placeholder='Add a comment...' type="text" />
+      authUser ?<div className='border-b-gray-400 hover:border-b-blue-400 border-b-2  text-white flex justify-between items-center w-full'>
+      <input ref={commentRef} value={comment} onChange={(e)=>setComment(e.target.value)} className='outline-none bg-transparent p-2 w-[90%]' placeholder='Add a comment...' type="text" />
       <button onClick={handleSubmitComment} className='font-semibold text-blue-500'>{loading ?"Posting...":"Post"}</button>
       </div> : "Login To Post"
     }
