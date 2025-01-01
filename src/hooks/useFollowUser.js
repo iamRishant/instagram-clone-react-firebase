@@ -13,10 +13,12 @@ const useFollowUser = (userId) => {
   const {userProfile,setUserProfile}=useUserProfileStore();
 
   const handleFollowUser=async()=>{
+    // if(!authUser) return;
+    // if(!userProfile) return;
     setLoading(true);
     // if(!userProfile) return;
     try {
-        const currentUserRef=doc(firestore,"users",authUser.uid);
+        const currentUserRef=doc(firestore,"users",authUser?.uid);
         const userToFollowOrUnfollowRef=doc(firestore,"users",userId);
 
         await updateDoc(currentUserRef,{
@@ -24,7 +26,7 @@ const useFollowUser = (userId) => {
         })
 
         await updateDoc(userToFollowOrUnfollowRef,{
-            followers:isFollowing ? arrayRemove(authUser.uid):arrayUnion(authUser.uid) // ab uss user ke follower bhi badhana ghatana pdega n
+            followers:isFollowing ? arrayRemove(authUser?.uid):arrayUnion(authUser?.uid) // ab uss user ke follower bhi badhana ghatana pdega n
         })
 
         if(isFollowing){
@@ -62,7 +64,9 @@ const useFollowUser = (userId) => {
         }
         
     } catch (error) {
-        toast.error("Error "+error.message+" : "+error.stack);
+        console.log(error);
+        
+        // toast.error("Error "+error.message);
 
     }
     finally{
